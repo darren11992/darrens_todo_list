@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Darren's Initial Commit</title>
+        <title>Darren's To Do List</title>
     </head>
     <body>
         <h1>Heres your toDo List</h1>
         <form action="addToList()">
             <input type="text" name="newInput" id = "newInput">
-            <input type="button" onclick="addToList()">
+            <input type="button" onclick="addToList()" value="Add to List">
         </form>
     </body>
     <script>
@@ -19,9 +19,17 @@
 
         function addNewListItem(itemText){
             var currentRow = document.createElement('tr');
-                currentRow.appendChild( document.createElement('td') );
-                currentRow.cells[0].appendChild( document.createTextNode(itemText));
-                toDotable.appendChild(currentRow);
+            currentRow.setAttribute("id", itemText);
+            currentRow.appendChild( document.createElement('td') );
+            currentRow.appendChild( document.createElement('td') );
+            var text = document.createTextNode(itemText);
+            var deleteButton = document.createElement('input');
+            currentRow.cells[0].appendChild( text );
+            currentRow.cells[1].appendChild( deleteButton );
+            deleteButton.setAttribute("type", "button");
+            deleteButton.setAttribute("value", "X");
+            deleteButton.onclick = function() { removeFromList(currentRow.getAttribute('id')) }
+            toDotable.appendChild(currentRow);
         }
         function generateListOnLoad(toDoList){
             
@@ -33,10 +41,19 @@
 
         function addToList(){
             var newItem = document.getElementById("newInput").value;
+            toDoList.push(newItem);
             addNewListItem(newItem);
+
         }
-        
-        
+
+        function removeFromList(itemId){
+            var listElement = document.getElementById(itemId);
+            listElement.parentNode.removeChild(listElement);
+            listElementIndex = toDoList.indexOf(listElement);
+            toDoList.splice(listElementIndex, 1);
+
+        }
+         
     </script>
 
 </html>
