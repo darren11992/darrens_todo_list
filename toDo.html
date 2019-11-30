@@ -5,6 +5,38 @@
     </head>
     <body>
         <h1>Heres your toDo List</h1>
-        <p>Inital Commit</p>
+        <form action="addToList()">
+            <input type="text" name="newInput" id = "newInput">
+            <input type="button" onclick="addToList()">
+        </form>
     </body>
+    <script>
+        var toDoList = ["Put out the rubbish.", "Tidy my Room", "Do more Coding"];
+        toDotable = document.createElement('table');
+        window.onload = function() {
+            generateListOnLoad(toDoList);
+        }
+
+        function addNewListItem(itemText){
+            var currentRow = document.createElement('tr');
+                currentRow.appendChild( document.createElement('td') );
+                currentRow.cells[0].appendChild( document.createTextNode(itemText));
+                toDotable.appendChild(currentRow);
+        }
+        function generateListOnLoad(toDoList){
+            
+            for(var i = 0; i < toDoList.length; i++) {
+               addNewListItem(toDoList[i])
+            }
+        document.body.appendChild(toDotable);
+        }
+
+        function addToList(){
+            var newItem = document.getElementById("newInput").value;
+            addNewListItem(newItem);
+        }
+        
+        
+    </script>
+
 </html>
